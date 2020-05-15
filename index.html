@@ -1,0 +1,111 @@
+<!--<html>
+
+    <div id="content">
+        
+    <?php
+    $connect = mysqli_connect("localhost","root","gue55me", "dish");
+    
+    $sql = "SELECT * FROM images";
+    $result = mysqli_query($connect, $sql);
+
+    while($row=mysqli_fetch_array($result)){
+        echo "<div id='image_div'>";
+            echo "<img src='images/".$row['image']."'>";
+            echo "<p>".$row['text']."</p>";
+        echo "</div>";
+
+    }
+
+
+
+?>
+        <form method="post" action="insert.php" enctype="multipart/form-data">
+            <input type="hidden" name="size" value="1000000">
+            <div>
+                <input type="file" name="image">
+            </div>
+            <div>
+                <textarea name="text" cols="40" rows="4" placeholder="recipe here"></textarea>
+            </div>
+            <div>
+                <input type="submit" name="upload" value="Upload image">
+            </div>
+            
+        </form>
+    </div>
+</html>-->
+
+<html>
+    <style>
+        body{
+            background-image:url("foodbg.jpg");
+        }
+        body {
+  font-family: Arial;
+}
+
+input[type=text], select {
+  width: 50%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  display: block;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+
+input[type=submit] {
+  width: 50%;
+  background-color: #4CAF50;
+  color: white;
+  padding: 14px 20px;
+  margin: 8px 0;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+input[type=submit]:hover {
+  background-color: #45a049;
+}
+
+div.container {
+  border-radius: 5px;
+  background-color: #f2f2f2;
+  padding: 20px;
+}
+        .btn {
+  background-color:aquamarine;
+  border: none;
+  color: black;
+  padding: 12px 16px;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+/* Darker background on mouse-over */
+.btn:hover {
+  background-color: aqua;
+}
+    </style>
+    <body>
+    <center><form method="post" action="insert.php" enctype="multipart/form-data">
+            
+        
+        <h1>Name:</h1><input type="text" name="name" height="5" placeholder="The dish's name">
+        
+        <textarea name="text" cols="100" rows="30" placeholder="Recipe here"></textarea>
+        
+        <h1><input type="submit" name="submit"></h1>
+        
+    </form>
+        <form action="form1.html">
+            <button type="submit" class="btn">Go back home!</button>
+
+        </form>
+        </center>
+    </body>
+    
+</html>
+
+
