@@ -34,21 +34,20 @@ echo $error['name'];?></span>
 
 $connect = mysqli_connect("localhost","root","gue55me", "dish");
 $search = $_POST['person'];
+    echo $search;
 
-$find = "SELECT pic, ID FROM images WHERE text = '$search'";
+$find = "SELECT * FROM images WHERE text = '$search'";
 $result = mysqli_query($connect, $find);
 $row1 = mysqli_num_rows($result);
-
-echo "<table style='border: solid 1px black;'>";
-
-if ($row1 > 0) {
+if ($row1 > 0){
     echo "<table><tr><th>Recipe</th><th>Name</th><th>ID</th></tr>";
     
 
     while($row = $result->fetch_assoc()) {
         $recipename=$row['pic'];
         $id = $row['ID'];
-        echo "<tr><td>" . $recipename. "</td> <td><div id='recipe_div'>" . "<a id=$id href='display.php?id=$id'>$search</a>". "</td><td>". $id . "</div></td></tr>"; 
+        $name = $row['text'];
+        echo "<tr><td>" . $recipename. "</td> <td><div id='recipe_div'>" . "<a id=$id href='display.php?id=$id'>$name</a>". "</td><td>". $id . "</div></td></tr>"; 
     } 
     echo "</table>";
 }else {
