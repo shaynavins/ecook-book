@@ -22,6 +22,19 @@ tr:nth-child(odd) {
         font-family: 'Indie Flower';font-size: 22px;
             color: black;
         }
+    .btn {
+  background-color:aquamarine;
+  border: none;
+  color: black;
+  padding: 12px 16px;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+/* Darker background on mouse-over */
+.btn:hover {
+  background-color: aqua;
+}
 </style>
 </head>
     
@@ -31,10 +44,10 @@ echo $error['name'];?></span>
 </html>
     
 <?php
-include 'find.php';
+//include 'find.php';
 
 $connect = mysqli_connect("localhost","root","gue55me", "dish");
-$search = $_POST['person'];
+//$search = $_POST['person'];
 
 $find = "SELECT * FROM images";
 $result = mysqli_query($connect, $find);
@@ -49,15 +62,20 @@ if ($row1 > 0) {
     while($row = $result->fetch_assoc()) {
         $recipename=$row['pic'];
         $id = $row['ID'];
-        echo "<tr><td>" . $recipename. "</td> <td><div id='recipe_div'>" . "<a id=$id href='display.php?id=$id'>$search</a>". "</td><td>". $id . "</div></td></tr>"; 
+        $name = $row['text'];
+        echo "<tr><td>" . $recipename. "</td> <td><div id='recipe_div'>" . "<a id=$id href='display.php?id=$id'>$name</a>". "</td><td>". $id . "</div></td></tr>"; 
     } 
     echo "</table>";
 }else {
     echo "0 results";
 }
 
+    
 $connect->close();
 ?>
+    <html><form method="post" action="form1.html">
+    <button type="submit" class="btn">Take me back!</button>
+        </form></html>
     
 <!--<script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.2.1.min.js"></script>
 
