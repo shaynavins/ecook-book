@@ -26,27 +26,60 @@ table, th, td {
   background-color: aqua;
 }
 </style>
-    <body>
-    <center><h1>Yay! Your dish is in the database!</h1>
-        <form action="form1.html">
-    <button type="submit" class="btn">Take me back!</button>
-        </form>
-    </center>
-
-</head>
-    </head></body>
     
-</html>
+ </head>
+   
     
 <?php
 
 
-$name = $_POST['name'];
-$recipe = $_POST['text'];
 
-$connect = mysqli_connect("localhost","root","gue55me", "dish");
-mysqli_query($connect, "INSERT INTO images VALUES ('$recipe', '$name')");
+ 
+  $msg = "";
 
+  if (isset($_POST['upload'])) {
+  	$image = $_FILES['image']['name'];
+  	$name = $_POST['name'];
+    $recipe = $_POST['text'];
+
+    $db = mysqli_connect("localhost","root","gue55me", "dish");
+
+    //mysqli_query($db, "INSERT INTO images (pic, text, ID) VALUES ('$recipe', '$name', NULL)");
+  
+  	$target = "images/".basename($image);
+
+  	$sql = "INSERT INTO images (picture, pic, text, ID) VALUES ('$image', '$recipe', '$name', NULL)";
+  	mysqli_query($db, $sql);
+
+  	if (move_uploaded_file($_FILES['image']['tmp_name'], $target)) {
+  		$msg = "Image uploaded successfully";
+  	}else{
+  		$msg = "Failed to upload image";
+  	}
+  }
+  $result = mysqli_query($db, "SELECT * FROM images");
+$db->close();
+
+
+/*$db = mysqli_connect("localhost","root","gue55me", "dish");
+
+  
+  $msg = "";
+
+  if (isset($_POST['upload'])) {
+  	$image = $_FILES['image']['name'];
+
+  	$target = "images/".basename($image);
+
+  	$sql = "INSERT INTO practice (image, image_text) VALUES ('$image')";
+  	mysqli_query($db, $sql);
+
+  	if (move_uploaded_file($_FILES['image']['tmp_name'], $target)) {
+  		$msg = "Image uploaded successfully";
+  	}else{
+  		$msg = "Failed to upload image";
+  	}
+  }*/
 
 /*$search = $_POST['person'];
 
@@ -73,3 +106,13 @@ $connect->close();
 
 */
 ?>
+    <body>
+    <center><h1>Yay! Your dish is in the database!</h1>
+        <form method="post" action="form1.html">
+    <button type="submit" class="btn">Take me back!</button>
+            
+        </form>
+    </center>
+
+</body>
+</html>
