@@ -28,36 +28,105 @@ table, th, td {
 </style>
     
  </head>
-   
     
 <?php
-
-
 
  
   $msg = "";
 
-  if (isset($_POST['upload'])) {
-  	$image = $_FILES['image']['name'];
+  if (isset($_POST['submit'])) {
+  	$image = count((array)$_FILES['file']['name']);
   	$name = $_POST['name'];
     $recipe = $_POST['text'];
+    $chef = $_POST['who'];
+  }
+    
+    $filenames = array();
+    //create an array
+              /*if (isset($_POST['submit'])) {
 
+      for($i=0;$i<$image;$i++){
+          $filename = $_FILES['file']['name'][$i];
+          echo $filename;
+            
+  
+          $push = array_push($filenames, $filename);
+          
+  	// Get image name
+  	$image = $_FILES['file']['name'][$i];
+  	// Get text
+      echo $image;
+  	// image file directory
+  	$target = "images/".basename($image);
+
+  	if(move_uploaded_file($filename,$target) ) {
+  		$msg = "Image uploaded successfully";
+        echo $msg;
+  	}else{
+  		$msg = "Failed to upload image";
+        echo $msg;
+  	}
+  }
+ }*/
+      if(isset($_POST['submit'])){
+ // Count total files
+ $countfiles = count($_FILES['file']['name']);
+ 
+ // Looping all files
+ for($i=0;$i<$countfiles;$i++){
+   $filename = $_FILES['file']['name'][$i];
+   
+   // Upload file
+   move_uploaded_file($_FILES['file']['tmp_name'][$i],'images/'.$filename);
+    
+ }
+} 
+      
     $db = mysqli_connect("localhost","root","gue55me", "dish");
 
     //mysqli_query($db, "INSERT INTO images (pic, text, ID) VALUES ('$recipe', '$name', NULL)");
   
-  	$target = "images/".basename($image);
+  	//$target = "images/".basename($image);
 
-  	$sql = "INSERT INTO images (picture, pic, text, ID) VALUES ('$image', '$recipe', '$name', NULL)";
-  	mysqli_query($db, $sql);
+    //$filenames2 = implode($filenames);
+  	$sql = "INSERT INTO images (pic, text, ID, name) VALUES ('$recipe', '$name', NULL, '$chef')";
+    
+      	mysqli_query($db, $sql);
 
-  	if (move_uploaded_file($_FILES['image']['tmp_name'], $target)) {
-  		$msg = "Image uploaded successfully";
-  	}else{
-  		$msg = "Failed to upload image";
-  	}
-  }
-  $result = mysqli_query($db, "SELECT * FROM images");
+    if ($db->query($sql) === TRUE) {
+    $imageid = $db->insert_id; //gives the last inserted id
+}
+    //$sql2 = "INSERT INTO pictures (picture, ID, image_id) VALUES ('$filenames2', NULL, '$imageid')";
+            //echo $imageid;
+          //$img_dir = 'images/'.$_FILES['file']['name'][$i];
+
+    
+    foreach ($filenames as $val){ 
+        
+        $sql2 = "INSERT INTO pictures (image_id, img_blob) VALUES ('$imageid','$val')";
+        mysqli_query($db, $sql2);
+        //echo $targetimage;
+    }
+    
+    // delete it from images folder after upload is done
+  	$query = "SELECT * FROM pictures";
+    //echo $query;
+    //WHERE image_id = '$num'
+  $result = mysqli_query($db, $query);
+    //echo $result;
+    //$rows = mysqli_fetch_array($result);
+    //echo $rows;
+    while ($row = mysqli_fetch_array($result)) {
+     /*echo $rows['img_blob'];
+      echo "<div id='img_div'>";
+      	echo "<img width='500' height='400' src='images/".$rows['img_blob']."'>";
+      echo "</div>";  */
+        echo "<div id='img_div'>";
+      	echo "<img src='images/".$row['img_blob']."' >";
+      echo "</div>";
+    }
+
+  	
 $db->close();
 
 

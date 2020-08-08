@@ -56,14 +56,16 @@ $row1 = mysqli_num_rows($result);
 echo "<table style='border: solid 1px black;'>";
 
 if ($row1 > 0) {
-    echo "<table><tr><th>Recipe</th><th>Name</th><th>ID</th></tr>";
+    echo "<table><tr><th>Recipe</th><th>Name</th><th>ID</th><th>Chef</th></tr>";
     
 
     while($row = $result->fetch_assoc()) {
         $recipename=$row['pic'];
         $id = $row['ID'];
         $name = $row['text'];
-        echo "<tr><td>" . $recipename. "</td> <td><div id='recipe_div'>" . "<a id=$id href='display.php?id=$id'>$name</a>". "</td><td>". $id . "</div></td></tr>"; 
+        $chef = $row['name'];
+
+        echo "<tr><td>" . $recipename. "</td> <td><div id='recipe_div'>" . "<a id=$id href='display.php?id=$id'>$name</a>". "</td><td>". $id . "</td><td>" .$chef."</div></td></tr>"; 
     } 
     echo "</table>";
 }else {

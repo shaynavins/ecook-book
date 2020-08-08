@@ -1,5 +1,4 @@
-
-  <html>
+<html>
 <head>
 <style>
 table {
@@ -68,12 +67,35 @@ if ($row1 > 0) {
 }else {
   echo "0 results";
 }
-  $result = mysqli_query($connect, "SELECT * FROM images WHERE ID = '$num'");
+$query = "SELECT * FROM pictures WHERE image_id = '$num'";
+    //echo $query;
+    //WHERE image_id = '$num'
+  $result = mysqli_query($connect, $query);
+    //echo $result;
+    //$rows = mysqli_fetch_array($result);
+    //echo $rows;
     while ($row = mysqli_fetch_array($result)) {
+     /*echo $rows['img_blob'];
       echo "<div id='img_div'>";
-      	echo "<img src='images/".$row['picture']."' >";
+      	echo "<img width='500' height='400' src='images/".$rows['img_blob']."'>";
+      echo "</div>";  */
+        echo "<div id='img_div'>";
+      	echo "<img src='images/".$row['img_blob']."' >";
       echo "</div>";
     }
+    /*while ($row = mysqli_fetch_array($result)) {
+      echo "<div id='img_div'>";
+      	echo "<img src='images/".$row['image']."' >";
+      echo "</div>";
+    }*/
+    //'images/
+    
+    /*foreach ($rows as $row){
+      //echo "<div id='img_div'>";
+      	echo "<img width='500' height='400' src='images/".$row['picture']."' >";
+      //echo "</div>";  
+    }*/
+    
     echo "<form method='post' action='form1.html'>";
     echo "<button type='submit' class='btn'>Take me back!</button>";
     echo "</form>";
@@ -82,4 +104,3 @@ if ($row1 > 0) {
     <button type="submit" class="btn">Take me back!</button>
         </form>
     </html>-->
-

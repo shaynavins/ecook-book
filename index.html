@@ -91,11 +91,13 @@ div.container {
     <center><form method="POST" action="insert.php" enctype="multipart/form-data">
             
         
-        <h1>Name:</h1><input type="text" name="name" height="5" placeholder="The dish's name">
+        <h1>Fill this form:</h1><input type="text" name="name" height="5" placeholder="The dish's name">
         
         <textarea name="text" cols="100" rows="30" placeholder="Recipe here"></textarea>
         <br>
-                <br>
+        <input type="text" name="who" height="5" placeholder="Your name">
+        <br>
+        <br>
 
         
   	<input type="hidden" name="size" value="1000000">
@@ -103,10 +105,14 @@ div.container {
         <font face="fantasy" color="white">
         <h1>Upload an image!</h1>
         </font>
-        <h1><input type="file" class="btn" name="image"></h1><br><br>
+        <h1><input type="file" class="btn" name="file[]" multiple></h1><br><br>
   	</div>
   	<div>
-  		<button type="submit" class="btn" name="upload">Create the entry!</button>        
+
+  		<button type="submit" class="btn" name="upload">Create the entry!</button>       
+
+         <!--<input type='submit' name='submit' value='Upload'>-->
+
 
   	</div>
         </form>
